@@ -12,5 +12,5 @@ phases:
       - npm run build  
   post_build:
     commands:
-      - aws s3 sync public s3://ilu-onboarding --delete
+      - aws s3 sync build s3://ilu-onboarding --delete
       - aws cloudfront create-invalidation --distribution-id E2DJX2U2HHE5YM --paths "/*"
