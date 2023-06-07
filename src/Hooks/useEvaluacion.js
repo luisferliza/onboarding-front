@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { getEvaluacion, getEvaluaciones } from '../Api/evaluacion.api'
+import { getEvaluacion } from '../Api/evaluacion.api'
 
 export function useEvaluacion({ evaluacionId }) {
-  const [evaluacion, setEvaluacion] = useState({})
+  const [evaluacion, setEvaluacion] = useState({
+    completa: true
+  })
 
   useEffect(() => {
     reloadEvaluacion()

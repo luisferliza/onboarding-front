@@ -10,7 +10,8 @@ import GestionEvaluaciones from './Evaluaciones/gestionEvaluaciones'
 import NavBar from './Login/containers/navBar'
 import Login from './Login/containers/login'
 import PersonalMain from './Personal/personalMain'
-import PersonalEvaluaciones from './Personal/personalEvaluaciones'
+import { TemplateMain } from './Templates/templateMain'
+import Home from './Home/containers/home'
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           <Route index element={<Login />} />
         </Route>
         <Route path="/home" element={<MainDrawer />}>
+          <Route index element={<Home />}></Route>
+          <Route path="templates" element={<TemplateMain />}></Route>
           <Route path="evaluaciones" element={<EvaluacionesMain />}>
             <Route path=":evaluacionId" element={<GestionEvaluaciones />} />
           </Route>

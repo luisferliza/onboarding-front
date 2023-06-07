@@ -7,6 +7,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  Divider,
   FormControl,
   FormControlLabel,
   Paper,
@@ -27,6 +28,7 @@ export default function GestionEvaluaciones() {
   const { criterios } = useCriterios()
   const ref = useRef(null)
   const { evaluacion, reloadEvaluacion } = useEvaluacion({ evaluacionId })
+  const [loading, setLoading] = React.useState(false)
 
   const disabled = evaluacion.completa || evaluacion.disabled
 
@@ -57,12 +59,14 @@ export default function GestionEvaluaciones() {
   }
 
   const handleCompletarEvaluacion = () => {
+    setLoading(true)
     putEvaluacion({
       evaluacionId: evaluacion.id,
       evaluacion: {
         completa: true
       }
     }).then((res) => {
+      setLoading(false)
       if (res.status !== 200) {
         toast.error('Error al completar la evaluación')
       } else {
@@ -93,7 +97,7 @@ export default function GestionEvaluaciones() {
               padding: '10px'
             }}
           >
-            <b>{tipoEvaluacion.nombre}</b>
+            <h2>{tipoEvaluacion.nombre}</h2>
             {tipoEvaluacion.secciones?.map((seccion) => {
               return (
                 <Accordion>
@@ -102,49 +106,65 @@ export default function GestionEvaluaciones() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    <Typography>{seccion.nombre}</Typography>
+                    <b>{seccion.nombre}</b>
                   </AccordionSummary>
                   <AccordionDetails>
                     {seccion.preguntas?.map((pregunta) => {
                       return (
-                        <div
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            paddingLeft: '20px'
-                          }}
-                        >
-                          <i>{pregunta.descripcion}</i>
-                          <FormControl>
-                            <RadioGroup
-                              row
-                              aria-labelledby="demo-row-radio-buttons-group-label"
-                              name="row-radio-buttons-group"
-                              defaultValue={pregunta.valor}
-                              onChange={(e) => {
-                                handlePreguntaChange(
-                                  pregunta.id,
-                                  e.target.value
-                                )
+                        <>
+                          <div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                              paddingLeft: '20px'
+                            }}
+                          >
+                            <i
+                              style={{
+                                maxWidth: '40%',
+                                textAlign: 'left'
                               }}
+                            >{`${pregunta.descripcion} (${pregunta.peso}%)`}</i>
+                            <FormControl
+                              sx={
+                                {
+                                  minWidth: '820px'
+                                } /* style={{ width: '200px' }} */
+                              }
                             >
-                              {criterios?.map((criterio, index) => {
-                                console.log({ criterio })
-                                console.log({ pregunta })
-                                return (
-                                  <FormControlLabel
-                                    value={criterio.valor}
-                                    control={<Radio />}
-                                    label={`${criterio.nombre} (${criterio.valor}%)`}
-                                    labelPlacement="bottom"
-                                    disabled={disabled}
-                                  />
-                                )
-                              })}
-                            </RadioGroup>
-                          </FormControl>
-                        </div>
+                              <RadioGroup
+                                row
+                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                name="row-radio-buttons-group"
+                                defaultValue={pregunta.valor}
+                                onChange={(e) => {
+                                  handlePreguntaChange(
+                                    pregunta.id,
+                                    e.target.value
+                                  )
+                                }}
+                              >
+                                {criterios?.map((criterio, index) => {
+                                  return (
+                                    <FormControlLabel
+                                      value={criterio.valor}
+                                      control={<Radio />}
+                                      label={`${criterio.nombre} (${criterio.valor}%)`}
+                                      labelPlacement="bottom"
+                                      disabled={disabled}
+                                    />
+                                  )
+                                })}
+                              </RadioGroup>
+                            </FormControl>
+                          </div>
+                          <Divider
+                            sx={{
+                              margin: '10px 0'
+                            }}
+                          />
+                        </>
                       )
                     })}
                   </AccordionDetails>
@@ -176,8 +196,12 @@ export default function GestionEvaluaciones() {
           onBlur={handleComentarioChange}
         />
       </Paper>
-      {!evaluacion.completa && (
-        <Button variant="contained" onClick={handleCompletarEvaluacion}>
+      {!evaluacion.completa && !evaluacion.disabled && (
+        <Button
+          variant="contained"
+          onClick={handleCompletarEvaluacion}
+          disabled={loading}
+        >
           Completar evaluación
         </Button>
       )}

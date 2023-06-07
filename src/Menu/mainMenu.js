@@ -31,7 +31,7 @@ function MainMenu() {
 
   return (
     <List>
-      <NonDecoratedLink to="/proceso" visible>
+      <NonDecoratedLink to="/home/templates" visible>
         <CustomizedListItemButton
           selected={false}
           onClick={(e) =>
