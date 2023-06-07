@@ -1,0 +1,49 @@
+const modosIntegracion = {
+  directo: 1,
+  derivado: 2,
+  calculado: 3
+}
+
+const MODO_INTEGRACION_GLOBAL = {
+  SUMATORIA: 4,
+  PROMEDIO: 5,
+  LAST: 6
+}
+
+const TIPOS_NODO_SIPOC = {
+  SUPPLIER: 1,
+  CUSTOMER: 2
+}
+
+const CHARTS_COLORS = {
+  RED: '#FF0000',
+  GREEN: '#07c107',
+  EASY_GREEN: '#00FF00',
+  NONE: undefined
+}
+
+const TIPOS_RACI = {
+  RESPONSIBLE: 1,
+  ACCOUNTABLE: 2,
+  CONSULTED: 3,
+  INFORMED: 4,
+  DIGITADOR: 5
+}
+
+const TIPOS_NODO = {
+  INDICADOR: -1,
+  PROCESO: 2,
+  ACTIVIDAD: 3
+}
+
+const SHOW_CREATE_NODE_BUTTON_OPTION = 0
+
+export {
+  modosIntegracion,
+  MODO_INTEGRACION_GLOBAL,
+  TIPOS_NODO_SIPOC,
+  CHARTS_COLORS,
+  TIPOS_RACI,
+  SHOW_CREATE_NODE_BUTTON_OPTION,
+  TIPOS_NODO
+}

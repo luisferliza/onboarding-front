@@ -1,0 +1,33 @@
+.editor, .editable-object {
+    list-style: inside;
+}
+
+.editor img {
+    text-align: left;
+}
+
+.editor table, .editable-object table {
+    margin: 0.5rem 0;
+    border: solid 1px #bfbfbf;
+    border-collapse: collapse;
+}
+
+.editor td, .editable-object td {
+    border: solid 1px #bfbfbf;
+    padding: 0.5em;
+}
+
+.editor th, .editable-object th {
+    background: rgba(0,0,0,.05);
+    border: solid 1px #bfbfbf;
+    font-weight: 700;
+    padding: 0.5em;
+}
+
+figure.image {
+    text-align: center;    
+}
+
+figure.image-style-side {
+    text-align: right;
+}
