@@ -3,17 +3,18 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useEvaluaciones } from '../Hooks/useEvaluaciones'
 import { EvaluacionListItem } from './evaluacionListItem'
 import SearchInput from '../Custom/searchInput'
-const userId = '1'
+import TitleWithBackArrow from '../general-components/TitleWithBackArrow'
 
 export function EvaluacionesMain() {
-  const { evaluaciones, reloadEvaluaciones } = useEvaluaciones({ userId })
-  const [evaluacionesFiltradas, setEvaluacionesFiltradas] = useState([])
+  const { personalId } = useParams()
   const { evaluacionId } = useParams()
+  const { evaluaciones, reloadEvaluaciones } = useEvaluaciones({ personalId })
+  const [evaluacionesFiltradas, setEvaluacionesFiltradas] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
     reloadEvaluaciones()
-  }, [userId])
+  }, [personalId])
 
   useEffect(() => {
     setEvaluacionesFiltradas(evaluaciones)
@@ -36,7 +37,7 @@ export function EvaluacionesMain() {
   return (
     <div>
       <section>
-        <h1>Realizar evaluación</h1>
+        <TitleWithBackArrow title="Evaluaciones" />
       </section>
       <section
         style={{

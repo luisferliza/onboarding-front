@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { getEvaluaciones } from '../Api/evaluacion.api'
 
-export function useEvaluaciones({ userId }) {
+export function useEvaluaciones({ personalId }) {
   const [evaluaciones, setEvaluaciones] = useState([])
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export function useEvaluaciones({ userId }) {
   }, [])
 
   function reloadEvaluaciones() {
-    getEvaluaciones({ userId }).then((response) => {
+    getEvaluaciones({ personalId }).then((response) => {
       if (response.status === 200) {
         setEvaluaciones(response.body)
       } else {

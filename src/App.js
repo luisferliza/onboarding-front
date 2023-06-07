@@ -7,14 +7,29 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { EvaluacionesMain } from './Evaluaciones/evaluacionesMain'
 import GestionEvaluaciones from './Evaluaciones/gestionEvaluaciones'
+import NavBar from './Login/containers/navBar'
+import Login from './Login/containers/login'
+import PersonalMain from './Personal/personalMain'
+import PersonalEvaluaciones from './Personal/personalEvaluaciones'
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<MainDrawer />}>
-          <Route path="/evaluaciones" element={<EvaluacionesMain />}>
+        <Route path="/" element={<NavBar />}>
+          <Route index element={<Login />} />
+        </Route>
+        <Route path="/login" element={<NavBar />}>
+          <Route index element={<Login />} />
+        </Route>
+        <Route path="/home" element={<MainDrawer />}>
+          <Route path="evaluaciones" element={<EvaluacionesMain />}>
             <Route path=":evaluacionId" element={<GestionEvaluaciones />} />
+          </Route>
+          <Route path="personal" element={<PersonalMain />}>
+            <Route path=":personalId" element={<EvaluacionesMain />}>
+              <Route path=":evaluacionId" element={<GestionEvaluaciones />} />
+            </Route>
           </Route>
         </Route>
 

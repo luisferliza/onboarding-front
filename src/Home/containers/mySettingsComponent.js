@@ -70,8 +70,6 @@ export default function MySettings() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleMySettings}>Mi cuenta</MenuItem>
-        <MenuItem onClick={asumirMiUsuario}>Regresar a mi usuario</MenuItem>
         <MenuItem onClick={closeSession}>Cerrar Sesión</MenuItem>
       </Menu>
     </div>

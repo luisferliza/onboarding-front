@@ -8,7 +8,7 @@ function LogoComponent() {
   const navigate = useNavigate()
 
   const handleLogoClick = () => {
-    navigate(`/`)
+    navigate(`/home`)
   }
 
   return (

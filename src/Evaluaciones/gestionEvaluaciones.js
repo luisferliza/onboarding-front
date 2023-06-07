@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { useEvaluacion } from '../Hooks/useEvaluacion'
 import { useEffect } from 'react'
@@ -6,31 +6,83 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Button,
   FormControl,
   FormControlLabel,
   Paper,
   Radio,
   RadioGroup,
+  TextField,
   Typography
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useCriterios } from '../Hooks/useCriterios'
+import { putPregunta } from '../Api/preguntas.api'
+import { toast } from 'react-toastify'
+import TitleWithBackArrow from '../general-components/TitleWithBackArrow'
+import { putEvaluacion } from '../Api/evaluacion.api'
 
 export default function GestionEvaluaciones() {
   const { evaluacionId } = useParams()
   const { criterios } = useCriterios()
+  const ref = useRef(null)
   const { evaluacion, reloadEvaluacion } = useEvaluacion({ evaluacionId })
+
+  const disabled = evaluacion.completa || evaluacion.disabled
 
   useEffect(() => {
     reloadEvaluacion()
   }, [evaluacionId])
 
-  console.log({ evaluacion })
-  console.log({ criterios })
+  const handlePreguntaChange = (preguntaId, valor) => {
+    putPregunta({ preguntaId, pregunta: { valor } }).then((res) => {
+      if (res.status !== 200) {
+        toast.error('Error al actualizar la pregunta')
+        reloadEvaluacion()
+      }
+    })
+  }
+
+  const handleComentarioChange = () => {
+    putEvaluacion({
+      evaluacionId: evaluacion.id,
+      evaluacion: {
+        comentarios: ref.current.value
+      }
+    }).then((res) => {
+      if (res.status !== 200) {
+        toast.error('Error al actualizar la evaluación')
+      }
+    })
+  }
+
+  const handleCompletarEvaluacion = () => {
+    putEvaluacion({
+      evaluacionId: evaluacion.id,
+      evaluacion: {
+        completa: true
+      }
+    }).then((res) => {
+      if (res.status !== 200) {
+        toast.error('Error al completar la evaluación')
+      } else {
+        toast.success('Evaluación actualizada')
+        reloadEvaluacion()
+      }
+    })
+  }
 
   return (
-    <div>
-      <h1>{evaluacion.nombre}</h1>
+    <Paper
+      elevation={6}
+      sx={{
+        margin: '10px',
+        padding: '10px',
+        minHeight: 'calc(100vh - 120px)'
+      }}
+    >
+      <TitleWithBackArrow title={evaluacion.nombre} />
+
       {evaluacion.tiposEvaluacion?.map((tipoEvaluacion) => {
         return (
           <Paper
@@ -69,16 +121,24 @@ export default function GestionEvaluaciones() {
                               row
                               aria-labelledby="demo-row-radio-buttons-group-label"
                               name="row-radio-buttons-group"
+                              defaultValue={pregunta.valor}
+                              onChange={(e) => {
+                                handlePreguntaChange(
+                                  pregunta.id,
+                                  e.target.value
+                                )
+                              }}
                             >
-                              {criterios?.map((criterio) => {
+                              {criterios?.map((criterio, index) => {
+                                console.log({ criterio })
+                                console.log({ pregunta })
                                 return (
                                   <FormControlLabel
-                                    defaultChecked={
-                                      criterio.valor === pregunta.valor
-                                    }
                                     value={criterio.valor}
                                     control={<Radio />}
-                                    label={criterio.nombre}
+                                    label={`${criterio.nombre} (${criterio.valor}%)`}
+                                    labelPlacement="bottom"
+                                    disabled={disabled}
                                   />
                                 )
                               })}
@@ -94,6 +154,33 @@ export default function GestionEvaluaciones() {
           </Paper>
         )
       })}
-    </div>
+      <Paper
+        elevation={6}
+        sx={{
+          margin: '10px',
+          padding: '10px',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        <b>Comentarios</b>
+        <TextField
+          id="standard-multiline-static"
+          multiline
+          rows={4}
+          placeholder="Escribe tus comentarios aquí..."
+          variant="standard"
+          inputRef={ref}
+          disabled={disabled}
+          defaultValue={evaluacion.comentarios}
+          onBlur={handleComentarioChange}
+        />
+      </Paper>
+      {!evaluacion.completa && (
+        <Button variant="contained" onClick={handleCompletarEvaluacion}>
+          Completar evaluación
+        </Button>
+      )}
+    </Paper>
   )
 }

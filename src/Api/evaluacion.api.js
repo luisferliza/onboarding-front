@@ -1,12 +1,19 @@
 import { HOST } from '../Utils/config'
-import { getRequest } from './requests'
+import { getRequest, putRequest } from './requests'
 
-async function getEvaluaciones({ userId }) {
-  return await getRequest(`${HOST}/api/v1/evaluaciones/usuario/${userId}`)
+async function getEvaluaciones({ personalId }) {
+  return await getRequest(`${HOST}/api/v1/evaluaciones/usuario/${personalId}`)
 }
 
 async function getEvaluacion({ evaluacionId }) {
   return await getRequest(`${HOST}/api/v1/evaluaciones/${evaluacionId}`)
 }
 
-export { getEvaluaciones, getEvaluacion }
+async function putEvaluacion({ evaluacionId, evaluacion }) {
+  return await putRequest(
+    `${HOST}/api/v1/evaluaciones/${evaluacionId}`,
+    evaluacion
+  )
+}
+
+export { getEvaluaciones, getEvaluacion, putEvaluacion }

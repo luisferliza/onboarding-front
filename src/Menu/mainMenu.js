@@ -8,6 +8,7 @@ import styled from '@emotion/styled'
 import ApartmentIcon from '@mui/icons-material/Apartment'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import GradingIcon from '@mui/icons-material/Grading'
+import PeopleIcon from '@mui/icons-material/People'
 
 const CustomizedListItemButton = styled(ListItemButton)`
   &.Mui-selected {
@@ -45,7 +46,7 @@ function MainMenu() {
           <ListItemText primary="Plantillas" />
         </CustomizedListItemButton>
       </NonDecoratedLink>
-      <NonDecoratedLink to="/evaluaciones" visible>
+      <NonDecoratedLink to="/home/evaluaciones" visible>
         <CustomizedListItemButton
           selected={false}
           onClick={(e) =>
@@ -57,7 +58,22 @@ function MainMenu() {
           <ListItemIcon sx={{ color: 'white' }}>
             <GradingIcon />
           </ListItemIcon>
-          <ListItemText primary="Evaluaciones" />
+          <ListItemText primary="Mis Evaluaciones" />
+        </CustomizedListItemButton>
+      </NonDecoratedLink>
+      <NonDecoratedLink to="/home/personal" visible>
+        <CustomizedListItemButton
+          selected={false}
+          onClick={(e) =>
+            //menuItem.onClick(e, handleListItemClick, setDisplayTreeView)
+            console.log('click')
+          }
+          sx={{ pl: 4 }}
+        >
+          <ListItemIcon sx={{ color: 'white' }}>
+            <PeopleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Personal a mi cargo" />
         </CustomizedListItemButton>
       </NonDecoratedLink>
     </List>
