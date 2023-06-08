@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Onboarding
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Descripción
 
-### `npm start`
+Este proyecto es una solución de gestión de talento que facilita la creación de pruebas de habilidades y voluntades (Skills y Wills) para los trabajadores. La aplicación se utiliza para evaluar y asignar empleados a un cuadrante específico en una matriz de desempeño. Los cuadrantes incluyen: capacitar, dar acompañamiento, onboarding y desvincular.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Esta aplicación está diseñada para gestionar el proceso de incorporación (onboarding) de los empleados en nuestra empresa. Está escrita en Node.js y React y sigue los principios de "clean code", con una estructura de carpetas bien organizada, incluyendo Hooks, API, Utils y hooks personalizados para el acceso a los datos.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnologías
 
-### `npm test`
+Este proyecto utiliza las siguientes tecnologías:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Node.js** - utilizado para el backend de la aplicación.
+- **React** - utilizado para el frontend de la aplicación.
+- **AWS S3** - utilizado para almacenar los archivos estáticos de la aplicación.
+- **AWS CloudFront** - utilizado para la entrega rápida de contenido web.
+- **AWS Route53** - utilizado para el enrutamiento de dominio y la gestión DNS.
+- **AWS CodePipeline** - utilizado para la integración continua y la entrega continua (CI/CD).
+- **Mocha y Chai** - utilizados para las pruebas del backend.
+- **Balsamiq Wireframes** - utilizado para el prototipado de la interfaz de usuario.
 
-### `npm run build`
+## Estructura de la Aplicación
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+La aplicación sigue los principios del "clean code" y tiene una estructura de carpetas bien definida:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Hooks**: Aquí se definen los hooks de React utilizados en la aplicación.
+- **API**: Aquí se alojan los archivos relacionados con las llamadas a la API.
+- **Utils**: Aquí se almacenan las funciones de utilidad.
+- **Custom Hooks**: Aquí se definen los hooks personalizados que se utilizan para acceder a los datos.
+- **Templates**: Aquí se definen los templates de las evaluaciones.
+- **Home**: Aquí se definen los componentes de la página de inicio.
+- **Login**: Aquí se definen los componentes de la página de inicio de sesión.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Despliegue
 
-### `npm run eject`
+La aplicación se despliega en AWS utilizando un enfoque serverless. Se utiliza AWS S3 para almacenar los archivos estáticos, AWS CloudFront para la entrega de contenido y AWS Route53 para la gestión DNS. El proceso de despliegue se automatiza con AWS CodePipeline.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Se implementó A/B testing utilizando dos dominios y weighted routes con Route 53 para controlar el tráfico a cada versión.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+La configuración se encuentra en el archivo buildspec.yml.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Pruebas
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Las pruebas del backend se realizan utilizando Mocha y Chai. El enlace del repositorio de pruebas se encuentra [aquí](https://github.com/luisferliza/onboarding-backend)
 
-## Learn More
+## Self Service
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Se implementó una funcionalidad de auto-servicio que permite a los usuarios gestionar sus propios registros en la base de datos. Esto proporciona a los usuarios más control y reduce la carga de trabajo del equipo de soporte.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Cómo contribuir
 
-### Code Splitting
+Para contribuir a este proyecto, por favor sigue los siguientes pasos:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. No se puede, gracias por intentarl :)
 
-### Analyzing the Bundle Size
+## Cómo ejecutar la aplicación
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Para ejecutar la aplicación, siga los siguientes pasos:
 
-### Making a Progressive Web App
+1. Clona el repositorio.
+2. Instala las dependencias con `npm install`.
+3. Ejecuta la aplicación con `npm start`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
