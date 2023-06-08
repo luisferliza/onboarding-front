@@ -11,6 +11,9 @@ import AddIcon from '@mui/icons-material/Add'
 import {
   Box,
   Button,
+  FormControl,
+  Input,
+  InputLabel,
   MenuItem,
   Modal,
   Select,
@@ -18,6 +21,8 @@ import {
   Typography
 } from '@mui/material'
 import { useBlueprints } from '../Hooks/useBlueprint'
+import { toast } from 'react-toastify'
+import { postEvaluacion } from '../Api/evaluacion.api'
 
 export function EvaluacionesMain() {
   const { personalId } = useParams()
@@ -49,6 +54,20 @@ export function EvaluacionesMain() {
 
   function navigateToEmpleado(id) {
     navigate(`${id}`)
+  }
+
+  function crearEvaluacion() {
+    setOpenModal(false)
+    const data = {
+      usuarioId: personalId,
+      blueprintId
+    }
+    postEvaluacion(data).then((res) => {
+      if (res.status === 201) {
+        return reloadEvaluaciones()
+      }
+      toast.error('Error al crear la evaluacion')
+    })
   }
 
   if (evaluacionId) return <Outlet />
@@ -97,7 +116,7 @@ export function EvaluacionesMain() {
         <MatrizEvaluacion skills={matriz.skills} wills={matriz.wills} />
       )}
       <Fab
-        disabled={evaluaciones.length === 2}
+        disabled={evaluaciones.length >= 2}
         onClick={() => setOpenModal(true)}
         color="primary"
         aria-label="add"
@@ -120,9 +139,9 @@ export function EvaluacionesMain() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Nueva evaluacion
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <InputLabel htmlFor="demo-simple-select-label">
             Seleccione el blueprint para la nueva evaluacion
-          </Typography>
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -138,14 +157,23 @@ export function EvaluacionesMain() {
               )
             })}
           </Select>
-          <TextField
-            id="filled-error"
+
+          <InputLabel htmlFor="input-with-icon-adornment">
+            Fecha máxima de entrega
+          </InputLabel>
+          <Input
+            id="input-with-icon-adornment"
             label="Fecha máxima de entrega"
             variant="filled"
             type="date"
             fullWidth
           />
-          <Button style={{ marginTop: '20px' }} fullWidth>
+
+          <Button
+            style={{ marginTop: '20px' }}
+            fullWidth
+            onClick={crearEvaluacion}
+          >
             Crear
           </Button>
         </Box>

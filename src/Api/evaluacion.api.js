@@ -1,5 +1,5 @@
 import { HOST } from '../Utils/config'
-import { getRequest, putRequest } from './requests'
+import { getRequest, postRequest, putRequest } from './requests'
 
 async function getEvaluaciones({ personalId }) {
   return await getRequest(`${HOST}/api/v1/evaluaciones/usuario/${personalId}`)
@@ -16,4 +16,8 @@ async function putEvaluacion({ evaluacionId, evaluacion }) {
   )
 }
 
-export { getEvaluaciones, getEvaluacion, putEvaluacion }
+async function postEvaluacion(data) {
+  return await postRequest(`${HOST}/api/v1/evaluaciones`, data)
+}
+
+export { getEvaluaciones, getEvaluacion, putEvaluacion, postEvaluacion }
