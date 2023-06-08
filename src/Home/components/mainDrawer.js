@@ -8,7 +8,7 @@ import './layout.css'
 import { MainMenu } from '../../Menu/mainMenu'
 import { LayoutContext } from '../../Context/layoutContext'
 import { Tooltip } from '@mui/material'
-import { DEFAULT_DELAY } from '../../Utils/config'
+import { DEFAULT_DELAY, DRAWER_COLOR } from '../../Utils/config'
 import CloseIcon from '@mui/icons-material/Close'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
@@ -37,7 +37,7 @@ export default function MainDrawer() {
         open={isDrawerOpen}
         drawerwidth={drawerWidth}
         sx={{
-          backgroundColor: '#202e3c',
+          backgroundColor: DRAWER_COLOR,
           flex: 1
         }}
       >
@@ -60,7 +60,7 @@ export default function MainDrawer() {
         open={isDrawerOpen}
         PaperProps={{
           sx: {
-            backgroundColor: '#202e3c',
+            backgroundColor: DRAWER_COLOR,
             color: 'white'
           }
         }}

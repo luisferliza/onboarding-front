@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { DRAWER_COLOR } from '../../Utils/config'
 
 export default function NavBar() {
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ export default function NavBar() {
     <>
       <div>
         <header style={loginHeader}>
-          <p>Procesos e indicadores</p>
+          <p>Onboarding</p>
           <div>
             {/* <OutlinedButton
               onClick={login}
@@ -42,7 +43,7 @@ const loginHeader = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  backgroundColor: '#202e3c',
+  backgroundColor: DRAWER_COLOR,
   color: 'white',
   fontSize: 18,
   height: '60px',
